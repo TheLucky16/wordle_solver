@@ -2,7 +2,7 @@ name: Solve Today's Wordle
 
 on:
   schedule:
-    - cron: '1 0 * * *'  # Runs every day at 00:01 AM
+    - cron: '30 * * * *'  # Runs every day at 00:01 AM
 
 jobs:
   solve_wordle:
@@ -38,10 +38,10 @@ jobs:
       - name: Run Wordle solver
         run: python main.py
 
-      # Step 6: Commit and push updated Wordle_Solves.csv and Last_Saved_Date.txt
+      # Step 6: Commit and push updated wordle_solves.csv and last_saved_date.txt
       - name: Commit and push updates
         run: |
           git config --global user.name 'Wordle Solver'
-          git add Wordle_Solves.csv Last_Saved_Date.txt
-          git commit -m "Update Wordle_Solves"
+          git add wordle_solves.csv last_saved_date.txt
+          git commit -m "Update wordle_solves"
           git push
