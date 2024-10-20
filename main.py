@@ -26,7 +26,7 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())) # , options=chrome_options
 
 startingwords=['SLATE', 'CRANE', 'SLANT', 'TRACE', 'CARTE', 'CRATE']
 nextword = random.choice(startingwords) #chooses random starting word from the list above
