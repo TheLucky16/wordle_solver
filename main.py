@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import sys
 import os
+import chromedriver_autoinstaller
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -21,12 +22,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC 
 from webdriver_manager.chrome import ChromeDriverManager
 
-
-chrome_options = Options()
+chromedriver_autoinstaller.install()
+chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options) 
+
+driver = webdriver.Chrome(options = chrome_options)
 
 startingwords=['SLATE', 'CRANE', 'SLANT', 'TRACE', 'CARTE', 'CRATE']
 nextword = random.choice(startingwords) #chooses random starting word from the list above
@@ -239,3 +241,4 @@ elif game_outcome == 0:
 
 time.sleep(4)
 driver.quit()
+
