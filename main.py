@@ -24,7 +24,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 chromedriver_autoinstaller.install()
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
@@ -99,6 +99,9 @@ def save_last_saved_date():
 # open website:
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
+time.sleep(2)
+driver.save_screenshot("screenshot.png")
+
 element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
 element.click() # reject cookies
 
@@ -234,7 +237,7 @@ for item in Words:
 current_date = date.today().strftime("%d.%m.%Y")
 solved_data = [nextword,last_row_index + 1, current_date]+result
 
-if not is_data_already_saved_today() and game_outcome == 1:
+if not is_data_already_saved_today() and game_outcome != 0:
     append_to_csv(solved_data)
     save_last_saved_date()
     print("game won in", len(result), "tries")
