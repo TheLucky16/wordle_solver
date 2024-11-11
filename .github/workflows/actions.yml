@@ -2,7 +2,7 @@ name: Solve Today's Wordle
 
 on:
   schedule:
-    - cron: '1 * * 1 *'  # When to run
+    - cron: '*/5 * * * *'  # When to run: At every 5th minute.
 
 jobs:
   solve_wordle:

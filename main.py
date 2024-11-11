@@ -97,11 +97,13 @@ def save_last_saved_date():
         f.write(date.today().strftime('%d.%m.%Y'))
 
 # open website:
-
-driver.get("https://www.nytimes.com/games/wordle/index.html")
-driver.find_element(By.XPATH,'//*[@id="fides-button-group"]/div[1]/button[1]').click() #reject cookies
-driver.find_element(By.XPATH,"/html/body/div/div/div/div/div/div[2]/button[2]").click() #  play
 wait = WebDriverWait(driver,5)
+driver.get("https://www.nytimes.com/games/wordle/index.html")
+element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
+element.click() # reject cookies
+
+driver.find_element(By.XPATH,"/html/body/div/div/div/div/div/div[2]/button[2]").click() #  play
+
 try:
     element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/dialog/div/div/button")))
     element.click() #how to play
@@ -118,7 +120,8 @@ action = ActionChains(driver)
     #cmd_ctrl = Keys.COMMAND 
 #else:
     #Keys.CONTROL #windows/mac compatability
-action.key_down(Keys.COMMAND).send_keys(Keys.ARROW_DOWN).key_up(Keys.COMMAND).perform()
+action.key_down(Keys.COMMAND).send_keys(Keys.ARROW_DOWN).perform()
+action.key_up(Keys.COMMAND).perform()
 
 
 
@@ -234,6 +237,7 @@ solved_data = [nextword,last_row_index + 1, current_date]+result
 if not is_data_already_saved_today() and game_outcome == 1:
     append_to_csv(solved_data)
     save_last_saved_date()
+    print("game won in", len(result), "tries")
 elif is_data_already_saved_today():
     print("Data has already been saved today.")
 elif game_outcome == 0:
