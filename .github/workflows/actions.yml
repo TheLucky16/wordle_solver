@@ -47,6 +47,6 @@ jobs:
       - name: Commit and push updates
         run: |
           git config --global user.name 'Wordle Solver'
-          git add wordle_solves.csv last_saved_date.txt
-          git diff --quiet || git commit -m "Update wordle_solves"
+          git add Wordle_Solves.csv Last_Saved_Date.txt
+          git diff --quiet || git commit -m "Update Wordle_Solves"
           git push
