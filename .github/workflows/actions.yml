@@ -50,10 +50,10 @@ jobs:
           DISPLAY: :99  # Ensure DISPLAY variable is set for the script
 
       - name: Upload screenshot artifact
-          uses: actions/upload-artifact@v3
-          with:
-            name: debug-screenshot
-            path: /Users/thelucky16/Desktop/screenshot.png
+        uses: actions/upload-artifact@v3
+        with:
+          name: debug-screenshot
+          path: /Users/thelucky16/Desktop/screenshot.png
 
       # Step 7: Commit and push updated wordle_solves.csv and last_saved_date.txt
       - name: Commit and push updates
