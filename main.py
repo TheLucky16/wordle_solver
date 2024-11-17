@@ -27,7 +27,7 @@ chrome_options = webdriver.ChromeOptions()
 # chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
-
+chrome_options.add_argument("--window-size=1920,1080")
 driver = webdriver.Chrome(options = chrome_options)
 
 startingwords=['SLATE', 'CRANE', 'SLANT', 'TRACE', 'CARTE', 'CRATE']
@@ -101,6 +101,7 @@ wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 time.sleep(2)
 driver.save_screenshot("/Users/thelucky16/Desktop/screenshot.png")
+print(driver.page_source)
 
 element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
 element.click() # reject cookies
