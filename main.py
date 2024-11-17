@@ -102,8 +102,13 @@ driver.get("https://www.nytimes.com/games/wordle/index.html")
 time.sleep(10)
 print(driver.title)
 
-element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
-element.click() # reject cookies
+try:
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
+    element.click() # reject cookies
+except Exception as e:
+    print("An error occurred:", e)
+    driver.quit()
+
 
 driver.find_element(By.XPATH,"/html/body/div/div/div/div/div/div[2]/button[2]").click() #  play
 
