@@ -71,8 +71,8 @@ def Letter_Density(possibles):
     
     return sorted_density
 
-csv_solves_path = '/Users/thelucky16/A)python_projects/wordle_solver/wordle_solves.csv'
-date_path = '/Users/thelucky16/A)python_projects/wordle_solver/last_saved_date.txt'
+csv_solves_path = 'wordle_solver/Wordle_Solves.csv'
+date_path = 'wordle_solver/Last_Saved_Date.txt'
 
 def append_to_csv(data):
     solves_df = pd.DataFrame([data],columns=["word","attempts","date","attempt_1","attempt_2","attempt_3","attempt_4","attempt_5","attempt_6"])
