@@ -71,8 +71,8 @@ def Letter_Density(possibles):
     
     return sorted_density
 
-csv_solves_path = 'wordle_solver/Wordle_Solves.csv'
-date_path = 'wordle_solver/Last_Saved_Date.txt'
+csv_solves_path = 'Wordle_Solves.csv'
+date_path = 'Last_Saved_Date.txt'
 
 def append_to_csv(data):
     solves_df = pd.DataFrame([data],columns=["word","attempts","date","attempt_1","attempt_2","attempt_3","attempt_4","attempt_5","attempt_6"])
@@ -100,7 +100,6 @@ def save_last_saved_date():
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 time.sleep(10)
-print(driver.title)
 
 try:
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
