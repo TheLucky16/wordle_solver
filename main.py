@@ -99,7 +99,8 @@ def save_last_saved_date():
 # open website:
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
-time.sleep(2)
+time.sleep(10)
+print(driver.title)
 
 element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
 element.click() # reject cookies
