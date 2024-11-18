@@ -7,7 +7,6 @@ from collections import Counter
 from datetime import date, datetime
 import numpy as np
 import pandas as pd
-import sys
 import os
 import chromedriver_autoinstaller
 
@@ -75,7 +74,7 @@ csv_solves_path = 'Wordle_Solves.csv'
 date_path = 'Last_Saved_Date.txt'
 
 def append_to_csv(data):
-    solves_df = pd.DataFrame([data],columns=["word","attempts","date","attempt_1","attempt_2","attempt_3","attempt_4","attempt_5","attempt_6"])
+    solves_df = pd.DataFrame([data],columns=["date","attempt_1","attempt_2","attempt_3","attempt_4","attempt_5","attempt_6"])
     solves_df.to_csv(csv_solves_path,mode='a', header=not os.path.isfile(csv_solves_path), index=False)
     with open(csv_solves_path, 'a') as f:
         f.write(','.join(map(str, data)) + '\n')
@@ -99,7 +98,7 @@ def save_last_saved_date():
 # open website:
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
-time.sleep(10)
+
 
 try:
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
@@ -118,18 +117,6 @@ except Exception as e:
     driver.quit()
 time.sleep(0.5)
 action = ActionChains(driver)
-
-# Scroll down
-
-
-#if sys.platform == 'darwin':
-    #cmd_ctrl = Keys.COMMAND 
-#else:
-    #Keys.CONTROL #windows/mac compatability
-action.key_down(Keys.COMMAND).send_keys(Keys.ARROW_DOWN).perform()
-action.key_up(Keys.COMMAND).perform()
-
-
 
 
 for Repeat in range(1,7):
@@ -230,22 +217,25 @@ for Repeat in range(1,7):
     nextword = ranked[0][0]
 
     
-result = []
-for item in Words:
-    if item[0][1] == "empty":
-        result.append('')
-    else:
-        row_result = item[0][2][0]+item[1][2][0]+item[2][2][0]+item[3][2][0]+item[4][2][0]
-        result.append(row_result)    
+guesses = []
+for word in Words:
+	if word[0][1] != 'empty':
+		guess = ''
+		for letter in word:
+			guess += letter[1]
+		guesses.append(guess)
+tries_count = len(guesses)
+guesses += [0] * ( 6 - tries_count ) 
+
 current_date = date.today().strftime("%d.%m.%Y")
-solved_data = [nextword,last_row_index + 1, current_date]+result
+solved_data = [current_date]+guesses 
 
 if not is_data_already_saved_today() and game_outcome != 0:
     append_to_csv(solved_data)
     save_last_saved_date()
-    print("game won in", len(result), "tries")
+    print("game won in", tries_count, "tries")
 elif is_data_already_saved_today():
-    print("Data has already been saved today.")
+    print("Data has already been saved today")
 elif game_outcome == 0:
     print("yer a feckin loosa")
 
