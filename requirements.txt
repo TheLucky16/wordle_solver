@@ -1,5 +1,4 @@
 selenium
 numpy
 pandas
-webdriver-manager
 chromedriver_autoinstaller
