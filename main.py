@@ -113,7 +113,7 @@ except Exception:
     pass # what if there is no new policy
 
 
-driver.find_element(By.XPATH,"/html/body/div/div/div/div/div/div[2]/button[2]").click() #  play
+driver.find_element(By.XPATH,"/html/body/div[3]/div/div/div/div/div[2]/button[2]").click() #  play
 
 try:
     element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/dialog/div/div/button")))
