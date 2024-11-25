@@ -112,16 +112,23 @@ try:
 except Exception:
     pass # what if there is no new policy
 
+try:
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[3]/div/div/div[2]/div[1]/button/i')))
+    element.click() # shut down some window
+except Exception:
+    pass # what if there is no window
+
+
 element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/div/div/div/div[2]/button[2]")))
 element.click() # play
 
 
-try:
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/dialog/div/div/button")))
-    element.click() #how to play
-except Exception as e:
-    print("An error occurred:", e)
-    driver.quit()
+# try:
+element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/dialog/div/div/button")))
+element.click() #how to play
+# except Exception as e:
+#     print("An error occurred:", e)
+#     driver.quit()
 time.sleep(0.5)
 action = ActionChains(driver)
 
