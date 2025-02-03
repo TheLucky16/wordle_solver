@@ -99,8 +99,8 @@ def save_last_saved_date():
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 
-try: # /html/body/div[1]/div/div[2]/div/div/div/div[3]/div[1]/button[1]
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
+try: 
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div/div[3]/div[1]/button[1]')))
     element.click() # reject cookies
 except Exception:
     pass # what if there are no cookies
@@ -122,12 +122,13 @@ element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/di
 element.click() # play 
 
 
-# try:
-element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/dialog/div/div/button")))
-element.click() #how to play
-# except Exception as e:
-#     print("An error occurred:", e)
-#     driver.quit()
+try:
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/dialog/div/div/button")))
+    element.click() #how to play
+except Exception:
+    pass # what if there is no how to play
+
+
 time.sleep(0.5)
 action = ActionChains(driver)
 
