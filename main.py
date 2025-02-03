@@ -99,8 +99,7 @@ def save_last_saved_date():
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 
-
-try:
+try: # /html/body/div[1]/div/div[2]/div/div/div/div[3]/div[1]/button[1]
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fides-button-group"]/div[1]/button[1]')))
     element.click() # reject cookies
 except Exception:
@@ -113,14 +112,14 @@ except Exception:
     pass # what if there is no new policy
 
 try:
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[3]/div/div/div[2]/div[1]/button/i')))
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/div[2]/div[1]/button')))
     element.click() # shut down some window
 except Exception:
     pass # what if there is no window
 
 
-element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/div/div/div/div[2]/button[2]")))
-element.click() # play
+element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/div/div/div/div[2]/button[3]")))
+element.click() # play 
 
 
 # try:
