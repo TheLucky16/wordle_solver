@@ -38,7 +38,7 @@ repeats = []
 theword = [0,0,0,0,0]
 game_outcome = 0.5
 wait = WebDriverWait(driver,5)
-
+action = ActionChains(driver)
 
 
 
@@ -110,23 +110,11 @@ def visible_buttons():
 
 # open website:
 driver.get("https://www.nytimes.com/games/wordle/index.html")
-
-
 visible_buttons()
-
-element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/div/div/div/div[2]/button[3]")))
-element.click() # play 
-
-
-try: 
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/dialog/div/div/button/svg")))
-    element.click() #how to play
-except Exception:
-    pass # what if there is no how to play
-
-
+action.send_keys(Keys.SPACE).perform() # close final pop-up: how to play
 time.sleep(0.5)
-action = ActionChains(driver)
+
+
 
 
 for Repeat in range(1,7):
