@@ -37,7 +37,7 @@ notx = ['', '', '', '', '']
 repeats = []
 theword = [0,0,0,0,0]
 game_outcome = 0.5
-
+wait = WebDriverWait(driver,5)
 
 
 
@@ -97,14 +97,18 @@ def save_last_saved_date():
 
 def visible_buttons():
     buttons = driver.find_elements(By.XPATH, "//button[not(@disabled)] | //input[@type='submit' and not(@disabled)]")
-    for button in buttons:
+    for button in buttons[::-1]:
         text = button.text.strip()
         clickable_buttons = ['Continue', 'Reject All', 'Play']
         if text in clickable_buttons:
-            button.click()
+            try:
+                wait.until(EC.element_to_be_clickable(button))
+                button.click()
+            except Exception as e:
+                pass
+            
 
 # open website:
-wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 
 
