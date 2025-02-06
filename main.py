@@ -102,19 +102,25 @@ driver.get("https://www.nytimes.com/games/wordle/index.html")
 try: 
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div[2]/div[1]/button[1]')))
     element.click() # reject cookies
+    print('there is a cookies window')
 except Exception:
+    print('there is no cookies window')
     pass # what if there are no cookies
 
 try:
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div/div/button')))
     element.click() # accept new policy
+    print('there is a new policy window')
 except Exception:
+    print('there is no new policy window')
     pass # what if there is no new policy
 
 try:
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/div[2]/div[1]/button')))
     element.click() # shut down some window
+    print('there is a random window')
 except Exception:
+    print('there is no random window')
     pass # what if there is no window
 
 element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/div/div/div/div[2]/button[3]")))
