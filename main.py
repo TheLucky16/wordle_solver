@@ -95,15 +95,19 @@ def save_last_saved_date():
     with open(date_path, 'w') as f:
         f.write(date.today().strftime('%d.%m.%Y'))
 
+def visible_buttons():
+    buttons = driver.find_elements(By.XPATH, "//button[not(@disabled)] | //input[@type='submit' and not(@disabled)]")
+    print('buttons visible:')
+    for button in buttons:
+        text = button.text
+        button_xpath = button.get_attribute("outerHTML")
+        print(f"Button: {text}, XPath Approx: {button_xpath}")
+    print('.')
+
 # open website:
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 
-buttons = driver.find_elements(By.XPATH, "//button[not(@disabled)] | //input[@type='submit' and not(@disabled)]")
-
-for button in buttons:
-    print(button.text)
-    
 try: 
     element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div[2]/div[1]/button[1]')))
     element.click() # reject cookies
@@ -120,13 +124,7 @@ except Exception:
     print('there is no new policy window')
     pass # what if there is no new policy
 
-try:
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/div[2]/div[1]/button')))
-    element.click() # shut down some window
-    print('there is a random window')
-except Exception:
-    print('there is no random window')
-    pass # what if there is no window
+visible_buttons()
 
 element = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/div/div/div/div[2]/button[3]")))
 element.click() # play 
