@@ -97,32 +97,16 @@ def save_last_saved_date():
 
 def visible_buttons():
     buttons = driver.find_elements(By.XPATH, "//button[not(@disabled)] | //input[@type='submit' and not(@disabled)]")
-    print('buttons visible:')
     for button in buttons:
-        text = button.text
-        button_xpath = button.get_attribute("outerHTML")
-        print(f"Button: {text}, XPath Approx: {button_xpath}")
-    print('.')
+        text = button.text.strip()
+        clickable_buttons = ['Continue', 'Reject All', 'Play']
+        if text in clickable_buttons:
+            button.click()
 
 # open website:
 wait = WebDriverWait(driver,5)
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 
-try: 
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div[2]/div[1]/button[1]')))
-    element.click() # reject cookies
-    print('there is a cookies window')
-except Exception:
-    print('there is no cookies window')
-    pass # what if there are no cookies
-
-try:
-    element = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div/div/button')))
-    element.click() # accept new policy
-    print('there is a new policy window')
-except Exception:
-    print('there is no new policy window')
-    pass # what if there is no new policy
 
 visible_buttons()
 
