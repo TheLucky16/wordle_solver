@@ -97,7 +97,7 @@ def save_last_saved_date():
 
 def visible_buttons():
 	time.sleep(1)
-	wait.until(EC.presence_of_element_located((By.XPATH, "//button[normalize-space(text())='Reject all']")))
+	wait.until(EC.presence_of_all_elements_located((By.TAG_NAME, "button")))
 	buttons = driver.find_elements(By.XPATH, "//button[normalize-space(text())]")
 	must_press = ['reject all', 'continue', 'play']
 	for k in range(len(must_press)): 
