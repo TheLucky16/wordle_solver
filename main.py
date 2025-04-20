@@ -96,23 +96,30 @@ def save_last_saved_date():
         f.write(date.today().strftime('%d.%m.%Y'))
 
 def visible_buttons():
-    buttons = driver.find_elements(By.XPATH, "//button[not(@disabled)] | //input[@type='submit' and not(@disabled)]")
-    for button in buttons[::-1]:
-        text = button.text.strip()
-        clickable_buttons = ['Continue', 'Reject All', 'Play']
-        if text in clickable_buttons:
-            try:
-                wait.until(EC.element_to_be_clickable(button))
-                button.click()
-            except Exception as e:
-                pass
+	time.sleep(1)
+	wait.until(EC.presence_of_element_located((By.XPATH, "//button[normalize-space(text())='Reject all']")))
+	buttons = driver.find_elements(By.XPATH, "//button[normalize-space(text())]")
+	must_press = ['reject all', 'continue', 'play']
+	for k in range(len(must_press)): 
+		for button in buttons:
+			text = button.text.strip().lower()
+			if text == must_press[k]:
+				try:
+					wait.until(EC.element_to_be_clickable((By.XPATH, f"//button[normalize-space(text())='{button.text.strip()}']")))
+					button.click()
+					#print(f"button '{text}' pressed")
+					time.sleep(0.2)
+					break
+					
+				except Exception:
+					pass
             
 
 # open website:
 driver.get("https://www.nytimes.com/games/wordle/index.html")
 visible_buttons()
-action.send_keys(Keys.SPACE).perform() # close final pop-up: how to play
 time.sleep(0.5)
+action.send_keys(Keys.SPACE).perform() # close final pop-up: how to play
 
 
 
