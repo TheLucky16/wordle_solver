@@ -235,7 +235,7 @@ guesses += [0] * ( 6 - tries_count )
 current_date = date.today().strftime("%d.%m.%Y")
 solved_data = [current_date]+guesses 
 
-if not is_data_already_saved_today() and game_outcome != 0:
+if (not is_data_already_saved_today() ) and game_outcome != 0:
     append_to_csv(solved_data)
     save_last_saved_date()
     print("game won in", tries_count, "tries")
